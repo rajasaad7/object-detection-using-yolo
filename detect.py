@@ -121,7 +121,7 @@ def detect(source):
             coordinate = ""
 
             for *xyxy, conf, cls in det:
-                if int(cls) == 154:
+                if int(cls) == 10:  # face =10 man =9 whiteboard=154
                     return (
                         str(xyxy)
                         .replace("tensor(", "")
@@ -133,7 +133,6 @@ def detect(source):
         # Print time (inference + NMS)
         print("%sDone. (%.3fs)" % (s, t2 - t1))
     return "not found"
-    print("Done. (%.3fs)" % (time.time() - t0))
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -141,7 +140,7 @@ def index():
     return "<h1> Deployed to Heroku</h1>"
 
 
-@app.route("/getimage", methods=["POST"])
+@app.route("/getWhiteboard", methods=["POST"])
 def getimage():
     try:
         data = (request.data.decode()).split(",")[1]
